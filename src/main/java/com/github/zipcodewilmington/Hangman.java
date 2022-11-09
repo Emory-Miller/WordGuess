@@ -14,10 +14,13 @@ public class Hangman {
 
     String[] wordArray = { "cat", "dog", "bog", "cut"};
     String currentWord = "";
+    String currentGuess = Console.getStringInput("Enter a single Character:");
 
     int cGI = 0; // Current Guesses Integer
+    boolean continuePlaying = true;
     ArrayList<String> cGA = new ArrayList<>(); // Current Guesses Array
     ArrayList<String> aWA = new ArrayList<>(); // Actual Word Array
+
 
     public String getRandomWord (){
         Random rand = new Random();
@@ -38,34 +41,47 @@ public class Hangman {
         return aWA;
     }
 
-    public ArrayList<String> wordToGuessArray(){
-
+    public ArrayList<String> wordToCurrentGuessArray(){
+        for (int i = 0; i <aWA.size(); i++){
+            cGA.add("_");
+        }
+        return cGA;
     }
 
-    public boolean checkGuess(){
-
+    public ArrayList<String> checkGuess(String currentGuess){
+        for (int i = 0; i < aWA.size(); i++){
+            if ( aWA.get(i).equals(currentGuess)){
+                cGA.add(i, currentGuess);
+            }
+        }
+        return cGA;
     }
 
-    public int countGuesses(){
-        return 0;
+    public void guessSetter(){
+        cGI = aWA.size();
     }
     public void winningGame(){
         currentWord = "";
         aWA.clear();
         cGA.clear();
         System.out.println("Congratulations, You Won!");
-        Console.getStringInput("Would you like to play again? (yes/no)");
+;
     }
 
     public void losingGame(){
         currentWord = "";
         aWA.clear();
         cGA.clear();
-        System.out.println("You lost! You ran out of guesses.");
-        Console.getStringInput("Would you like to play again? (yes/no)");
+        System.out.println("You lost! You ran out of guesses.");;
     }
-    public void exitGame(){
-
+    public boolean exitGame(){
+        String answer = Console.getStringInput("Would you like to play again? (yes/no)");
+        if (answer.equals("yes")){
+            continuePlaying = true;
+        } else {
+            continuePlaying = false;
+        }
+        return continuePlaying;
     }
 
 
