@@ -5,7 +5,7 @@ public class Wordguess {
     public static void main(String[] args) {
 
         Hangman game = new Hangman();
-        game.announce_game();
+        game.announceGame();
 
         while(game.continuePlaying){
             game.initializeGameState();
@@ -13,8 +13,8 @@ public class Wordguess {
                 game.display();
                 game.getNextGuess();
                 game.process();
-                game.checkIfOver();
                 game.cGI -= 1 ;
+                game.checkIfOver();
             }
         }
     }
