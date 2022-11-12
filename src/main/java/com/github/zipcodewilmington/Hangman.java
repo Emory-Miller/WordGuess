@@ -1,6 +1,5 @@
 package com.github.zipcodewilmington;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -12,76 +11,121 @@ import java.util.Random;
  */
 public class Hangman {
 
-    String[] wordArray = { "cat", "dog", "bog", "cut"};
-    String currentWord = "";
-    String currentGuess = Console.getStringInput("Enter a single Character:");
+     String[] wordArray = { "cat", "godzilla", "mothra", "apache", "dog"};
+     String currentWord = "";
+     char currentGuess = ' ';
 
-    int cGI = 0; // Current Guesses Integer
-    boolean continuePlaying = true;
-    ArrayList<String> cGA = new ArrayList<>(); // Current Guesses Array
-    ArrayList<String> aWA = new ArrayList<>(); // Actual Word Array
+     int cGI = 0; // Current Guesses Integer
+     boolean continuePlaying = true;
+     char[] cGA; // Current Guesses Array
+     char[] aWA; // Actual Word Array
 
 
     public String getRandomWord (){
         Random rand = new Random();
-        int randIndex = rand.nextInt(wordArray.length-1);
-        currentWord = wordArray[randIndex];
-        return currentWord;
+        int randIndex = rand.nextInt(this.wordArray.length-1);
+        this.currentWord = this.wordArray[randIndex];
+        return this.currentWord;
     }
 
-    public String display (String display){
-        System.out.println(display.toString());
-        return display;
+    public void display (){
+        System.out.println("Current Guesses:");
+        System.out.println(this.cGA);
+        System.out.println("You have " + this.cGI + " tries left.");
     }
 
-
-    public ArrayList<String> wordToArray(){
-        String[] aWS = currentWord.split("");
-        aWA = (ArrayList<String>) Arrays.asList(aWS);
-        return aWA;
+    public void displayInt (int display){
+        System.out.println(display);
     }
 
-    public ArrayList<String> wordToCurrentGuessArray(){
-        for (int i = 0; i <aWA.size(); i++){
-            cGA.add("_");
+    public void announce_game(){
+        System.out.println("Let's Play WordGuess!");
+    }
+
+    public void initializeGameState (){
+        getRandomWord();
+        wordToArray();
+        wordToCurrentGuessArray();
+        guessSetter();
+    }
+    public char[] wordToArray(){
+        this.aWA = this.currentWord.toCharArray();
+        return this.aWA;
+    }
+
+    public char[] wordToCurrentGuessArray(){
+        this.cGA = new char[this.aWA.length];
+        for (int i = 0; i < this.aWA.length; i++) {
+            this.cGA[i] = '_';
         }
-        return cGA;
+        return this.cGA;
     }
 
-    public ArrayList<String> checkGuess(String currentGuess){
-        for (int i = 0; i < aWA.size(); i++){
-            if ( aWA.get(i).equals(currentGuess)){
-                cGA.add(i, currentGuess);
+    public char getNextGuess(){
+        Character chGuess = Console.getCharInput("Enter a single Character:");
+        this.currentGuess = chGuess;
+        return this.currentGuess;
+    }
+
+    public char[] process(){
+        for (int i = 0; i < this.cGA.length; i++){
+            if ( this.aWA[i] == this.currentGuess ){
+                this.cGA[i] = this.currentGuess;
             }
         }
-        return cGA;
+        return this.cGA;
+    }
+
+    public boolean checkIfOver(){
+        if (Arrays.equals(this.aWA, this.cGA)){
+            winningGame();
+            return true;
+        }
+        if (this.cGI == 0 && Arrays.equals(this.aWA, this.cGA)) {
+            winningGame();
+            return true;
+        }
+        if (this.cGI == 0) {
+            losingGame();
+            return true;
+        }
+        return false;
     }
 
     public void guessSetter(){
-        cGI = aWA.size();
+        this.cGI = this.aWA.length;
     }
+
+    public void game_over(){
+        this.currentWord = "";
+        this.aWA = null;
+        this.cGA = null;
+    }
+
+    public boolean continueGame(){
+        if (checkIfOver() == true) return false;
+        if (checkIfOver() == false) return true;
+        return true;
+    }
+
     public void winningGame(){
-        currentWord = "";
-        aWA.clear();
-        cGA.clear();
+        System.out.println("**************************");
+        System.out.println(this.cGA);
         System.out.println("Congratulations, You Won!");
-;
+        game_over();
+        ask_to_play_again();
     }
 
     public void losingGame(){
-        currentWord = "";
-        aWA.clear();
-        cGA.clear();
-        System.out.println("You lost! You ran out of guesses.");;
+        System.out.println("You lost! You ran out of guesses.");
+        game_over();
+        ask_to_play_again();
     }
-    public boolean exitGame(){
-        String answer = Console.getStringInput("Would you like to play again? (yes/no)");
-        if (answer.equals("yes")){
-            continuePlaying = true;
-        } else {
-            continuePlaying = false;
-        }
-        return continuePlaying;
+    public boolean ask_to_play_again() {
+        Character answer = Console.getCharInput("Would you like to play again? (y/n)");
+        if (answer.equals('y')) this.continuePlaying = true;
+        if (answer.equals('n')) this.continuePlaying = false;
+        return false;
     }
 
 

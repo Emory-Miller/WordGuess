@@ -10,10 +10,10 @@ public class Console {
         print(output + "\n", args);
     }
 
-    public static String getStringInput(String prompt) {
+    public static char getCharInput(String prompt) {
         Scanner scanner = new Scanner(System.in);
         println(prompt);
         String userInput = scanner.nextLine();
-        return userInput;
+        return userInput.charAt(0);
     }
 }

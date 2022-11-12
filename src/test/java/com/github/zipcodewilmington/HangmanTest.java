@@ -17,11 +17,11 @@ public class HangmanTest {
         System.out.println(hm.getRandomWord());
     }
 
-    @Test
-    public void displayTest(){
-        Hangman hm = new Hangman();
-        String expected = "Hello World";
-        String actual = hm.display(expected);
-        Assert.assertEquals(expected, actual);
-    }
+//    @Test
+//    public void displayTest(){
+//        Hangman hm = new Hangman();
+//        String expected = "Hello World";
+//        String actual = hm.display(expected);
+//        Assert.assertEquals(expected, actual);
+//    }
 }
