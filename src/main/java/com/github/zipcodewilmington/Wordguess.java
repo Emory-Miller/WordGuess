@@ -13,10 +13,8 @@ public class Wordguess {
                 game.display();
                 game.getNextGuess();
                 game.process();
-                game.cGI -= 1 ;
                 game.checkIfOver();
             }
         }
     }
-
 }

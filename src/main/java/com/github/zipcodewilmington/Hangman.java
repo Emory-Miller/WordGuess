@@ -23,7 +23,7 @@ public class Hangman {
 
     public String getRandomWord (){
         Random rand = new Random();
-        int randIndex = rand.nextInt(this.wordArray.length-1);
+        int randIndex = rand.nextInt(this.wordArray.length);
         this.currentWord = this.wordArray[randIndex];
         return this.currentWord;
     }
@@ -57,8 +57,7 @@ public class Hangman {
     }
 
     public void getNextGuess(){
-        char chGuess = Console.getCharInput("Enter a single Character:");
-        this.currentGuess = chGuess;
+        this.currentGuess = Console.getCharInput("Enter a single Character:");
     }
 
     public void process(){
@@ -67,6 +66,7 @@ public class Hangman {
                 this.cGA[i] = this.currentGuess;
             }
         }
+        this.cGI -= 1;
     }
 
     public boolean checkIfOver(){
@@ -108,11 +108,10 @@ public class Hangman {
         System.out.println("You lost! You ran out of guesses.");
         askToPlayAgain();
     }
-    public boolean askToPlayAgain() {
+    public void askToPlayAgain() {
         Character answer = Console.getCharInput("Would you like to play again? (y/n)");
         if (answer.equals('y')) this.continuePlaying = true;
         if (answer.equals('n')) this.continuePlaying = false;
-        return false;
     }
 
 }
