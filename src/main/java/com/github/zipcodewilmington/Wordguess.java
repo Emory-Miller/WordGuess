@@ -5,16 +5,15 @@ public class Wordguess {
     public static void main(String[] args) {
 
         Hangman game = new Hangman();
-        game.announceGame();
 
         while(game.continuePlaying){
             game.announceGame();
             game.initializeGameState();
-            while(game.checkIfOver()==false){
+            while(!game.checkIfOver()){
                 game.display();
                 game.getNextGuess();
                 game.process();
-                if (game.checkIfOver() == true){
+                if (game.checkIfOver()){
                     break;
                 }
             }

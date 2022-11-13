@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Hangman {
 
-     String[] wordArray = { "cat", "dog"};
+     String[] wordArray = { "cat", "dog", "bird", "tiger", "godzilla", "mothra"};
      String currentWord = "";
      char currentGuess = ' ';
 
