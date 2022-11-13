@@ -91,12 +91,6 @@ public class Hangman {
         wordToCurrentGuessArray();
     }
 
-    public boolean continueGame(){
-        if (checkIfOver() == true) return false;
-        if (checkIfOver() == false) return true;
-        return true;
-    }
-
     public void winningGame(){
         System.out.println("**************************");
         System.out.println(this.cGA);

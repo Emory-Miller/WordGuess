@@ -8,12 +8,15 @@ public class Wordguess {
         game.announceGame();
 
         while(game.continuePlaying){
+            game.announceGame();
             game.initializeGameState();
-            while(game.continueGame()){
+            while(game.checkIfOver()==false){
                 game.display();
                 game.getNextGuess();
                 game.process();
-                game.checkIfOver();
+                if (game.checkIfOver() == true){
+                    break;
+                }
             }
         }
     }
