@@ -1,6 +1,6 @@
 package com.github.zipcodewilmington;
-import com.github.zipcodewilmington.Hangman;
-public class Wordguess {
+
+public class GameEngine {
 
     public static void main(String[] args) {
 
